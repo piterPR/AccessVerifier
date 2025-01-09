@@ -1,0 +1,27 @@
+name: CI-test
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.13'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pylint bandit safety
+      - name: Pylint check 
+        run: |
+          pylint app 
+      - name: Bandit security check
+        run: |
+          bandit  -r app 
+      - name: Safety security check
+        run: |
+          safety check

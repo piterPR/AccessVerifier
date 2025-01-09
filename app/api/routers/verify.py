@@ -1,7 +1,7 @@
 import logging
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import JSONResponse
-from app.services.ip_checker import IPChecker
+from app.core.ip_checker import IPChecker
 
 logger = logging.getLogger("verify_router")
 verify_router = APIRouter()
@@ -12,8 +12,7 @@ async def verify_access(request: Request):
     Verify access to resource
     """
     body = await request.body()
-    ipchecker = IPChecker(body=body)
-    response = ipchecker.check_ip()
+    response = IPChecker.check_ip(body)
 
     if response is True:
         return JSONResponse(content="OK", status_code=200)

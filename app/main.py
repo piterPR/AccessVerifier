@@ -2,11 +2,9 @@ from fastapi import FastAPI
 from app.core.scheduler import DataScheduler
 from app.api.routers.verify import verify_router
 from app.api.routers.healthcheck import health_router
-from app.core.config import BASE_URL, SCHEDULER_INTERVAL_HOURS, DATA_PATH
 
 
-data_scheduler = DataScheduler(base_url=BASE_URL, data_path=DATA_PATH)
-data_scheduler.start(interval=SCHEDULER_INTERVAL_HOURS)
+data_scheduler = DataScheduler()
 
 app = FastAPI(
     title="AccessVerifier",

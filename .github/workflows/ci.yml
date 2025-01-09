@@ -3,7 +3,7 @@ name: CI-test
 on: [push, pull_request]
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,7 +18,7 @@ jobs:
           pip install pylint bandit safety
       - name: Pylint check 
         run: |
-          pylint app 
+          pylint --fail-under=8 app 
       - name: Bandit security check
         run: |
           bandit  -r app 

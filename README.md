@@ -1,10 +1,9 @@
-## Structure of repository
-.github -> pipelines for pylint checker
-app -> 
+# Access Verifier
+Application to verify IP addresses from selected AWS regions 
 
 
-# App
-To run app locally, choose one of two ways (using venv or docker)
+## Setup
+To run app locally, choose one of two ways (using venv or docker/podman)
 
 Using venv: 
 ```
@@ -21,12 +20,24 @@ podman run --name acces_verifier -p 8000:8000 \
 acces_verifier```
 ```
 
-Test and verify endpoint using curl
+## Test
 
+Test and verify using curl POST method
+
+Correct IP 
 ```
 curl --location 'localhost:8000/verify' \
 --header 'Content-Type: text/plain' \
 --data 'x-forwarded-for: 3.248.180.68
+User-Agent: CustomClient/1.0
+Host: example.com
+X-Custom-Header: TestHeader'
+```
+Wrong IP
+```
+curl --location 'localhost:8000/verify' \
+--header 'Content-Type: text/plain' \
+--data 'x-forwarded-for: 1.218.0.0
 User-Agent: CustomClient/1.0
 Host: example.com
 X-Custom-Header: TestHeader'
